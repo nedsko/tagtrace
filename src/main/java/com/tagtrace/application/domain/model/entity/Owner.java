@@ -16,4 +16,11 @@ public class Owner {
     private List<TagId> ownedTagIds;
     private OwnerName name;
     private Email email;
+
+    public Owner(OwnerId id, List<TagId> ownedTagIds, OwnerName name, Email email) {
+        this.id = id;
+        this.ownedTagIds = ownedTagIds;
+        this.name = name;
+        this.email = email;
+    }
 }

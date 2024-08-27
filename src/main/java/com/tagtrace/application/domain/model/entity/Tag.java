@@ -16,4 +16,31 @@ public class Tag {
     private Instant lastModifiedTimeStamp;
     private TagName name;
     private GeoLocation lastKnownLocation;
+
+    private Tag() {
+    }
+
+    public Tag(TagId id,
+               OwnerId ownerId,
+               TagStatus status,
+               Instant createdTimeStamp,
+               Instant lastModifiedTimeStamp,
+               TagName name,
+               GeoLocation lastKnownLocation) {
+        this.id = id;
+        this.ownerId = ownerId;
+        this.status = status;
+        this.createdTimeStamp = createdTimeStamp;
+        this.lastModifiedTimeStamp = lastModifiedTimeStamp;
+        this.name = name;
+        this.lastKnownLocation = lastKnownLocation;
+    }
+
+    public static Tag createNewTag() {
+        var tag = new Tag();
+        tag.status = TagStatus.INACTIVE;
+        tag.createdTimeStamp = Instant.now();
+        tag.lastModifiedTimeStamp = Instant.now();
+        return tag;
+    }
 }
