@@ -1,4 +1,4 @@
-package com.example.tagtrace;
+package com.tagtrace;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,4 +1,4 @@
-package com.example.tagtrace.application.domain.model.value_object;
+package com.tagtrace.application.domain.model.value_object;
 
 import org.apache.commons.validator.routines.EmailValidator;
 

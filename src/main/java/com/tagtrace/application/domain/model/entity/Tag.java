@@ -1,6 +1,6 @@
-package com.example.tagtrace.application.domain.model.entity;
+package com.tagtrace.application.domain.model.entity;
 
-import com.example.tagtrace.application.domain.model.value_object.*;
+import com.tagtrace.application.domain.model.value_object.*;
 import lombok.Getter;
 import lombok.Setter;
 
