@@ -1,4 +1,4 @@
-package com.tagtrace.application.port.input;
+package com.tagtrace.application.port.input.create_owner;
 
 import com.tagtrace.application.domain.model.value_object.Email;
 import com.tagtrace.application.domain.model.value_object.OwnerName;

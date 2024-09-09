@@ -1,5 +1,6 @@
 package com.tagtrace.adapter.output.persistance;
 
+import com.tagtrace.adapter.output.persistance.mapper.DomainToEntityMapper;
 import com.tagtrace.adapter.output.persistance.repository.TagEntityRepository;
 import com.tagtrace.application.domain.model.entity.Tag;
 import com.tagtrace.application.domain.model.value_object.TagId;

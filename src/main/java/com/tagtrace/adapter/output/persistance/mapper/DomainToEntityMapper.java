@@ -1,4 +1,4 @@
-package com.tagtrace.adapter.output.persistance;
+package com.tagtrace.adapter.output.persistance.mapper;
 
 import com.tagtrace.adapter.output.persistance.model.TagEntity;
 import com.tagtrace.adapter.output.persistance.model.TagStatus;

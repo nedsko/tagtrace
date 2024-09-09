@@ -1,4 +1,4 @@
-package com.tagtrace.application.port.input;
+package com.tagtrace.application.port.input.create_tag;
 
 import com.tagtrace.application.domain.model.value_object.TagId;
 

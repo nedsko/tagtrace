@@ -1,4 +1,4 @@
-package com.tagtrace.adapter.input.web;
+package com.tagtrace.adapter.input.web.api;
 
 import java.util.UUID;
 

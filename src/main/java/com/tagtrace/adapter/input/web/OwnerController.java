@@ -1,6 +1,10 @@
 package com.tagtrace.adapter.input.web;
 
-import com.tagtrace.application.port.input.CreateOwnerUseCase;
+import com.tagtrace.adapter.input.web.api.CreateOwnerRequestObject;
+import com.tagtrace.adapter.input.web.api.CreateOwnerResponseObject;
+import com.tagtrace.adapter.input.web.mapper.ApiToDomainMapper;
+import com.tagtrace.adapter.input.web.mapper.DomainToApiMapper;
+import com.tagtrace.application.port.input.create_owner.CreateOwnerUseCase;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

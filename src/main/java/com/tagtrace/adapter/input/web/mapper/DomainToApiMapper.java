@@ -1,11 +1,12 @@
-package com.tagtrace.adapter.input.web;
+package com.tagtrace.adapter.input.web.mapper;
 
-import com.tagtrace.application.port.input.CreateOwnerOutput;
+import com.tagtrace.adapter.input.web.api.CreateOwnerResponseObject;
+import com.tagtrace.application.port.input.create_owner.CreateOwnerOutput;
 import org.springframework.stereotype.Component;
 
 @Component
 public class DomainToApiMapper {
-    CreateOwnerResponseObject toResponseObject(CreateOwnerOutput output) {
+    public CreateOwnerResponseObject toResponseObject(CreateOwnerOutput output) {
         var createdOwner = output.createdOwner();
         return new CreateOwnerResponseObject(
                 createdOwner.getId().value(),

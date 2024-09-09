@@ -1,4 +1,4 @@
-package com.tagtrace.adapter.input.web;
+package com.tagtrace.adapter.input.web.api;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

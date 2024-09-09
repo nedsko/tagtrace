@@ -1,6 +1,6 @@
 package com.tagtrace.adapter.input.web;
 
-import com.tagtrace.application.port.input.CreateTagUseCase;
+import com.tagtrace.application.port.input.create_tag.CreateTagUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

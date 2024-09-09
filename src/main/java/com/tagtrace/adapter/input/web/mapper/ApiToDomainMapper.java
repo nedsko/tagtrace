@@ -1,8 +1,9 @@
-package com.tagtrace.adapter.input.web;
+package com.tagtrace.adapter.input.web.mapper;
 
+import com.tagtrace.adapter.input.web.api.CreateOwnerRequestObject;
 import com.tagtrace.application.domain.model.value_object.Email;
 import com.tagtrace.application.domain.model.value_object.OwnerName;
-import com.tagtrace.application.port.input.CreateOwnerInput;
+import com.tagtrace.application.port.input.create_owner.CreateOwnerInput;
 import org.springframework.stereotype.Component;
 
 @Component

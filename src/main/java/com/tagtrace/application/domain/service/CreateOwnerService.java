@@ -2,9 +2,9 @@ package com.tagtrace.application.domain.service;
 
 import com.tagtrace.application.domain.exception.DuplicateEntityException;
 import com.tagtrace.application.domain.model.entity.Owner;
-import com.tagtrace.application.port.input.CreateOwnerInput;
-import com.tagtrace.application.port.input.CreateOwnerOutput;
-import com.tagtrace.application.port.input.CreateOwnerUseCase;
+import com.tagtrace.application.port.input.create_owner.CreateOwnerInput;
+import com.tagtrace.application.port.input.create_owner.CreateOwnerOutput;
+import com.tagtrace.application.port.input.create_owner.CreateOwnerUseCase;
 import com.tagtrace.application.port.output.LoadOwnersPort;
 import com.tagtrace.application.port.output.SaveOwnerPort;
 import jakarta.transaction.Transactional;
