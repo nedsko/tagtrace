@@ -1,9 +1,9 @@
 package com.tagtrace.application.domain.service;
 
 import com.tagtrace.application.domain.model.entity.Tag;
-import com.tagtrace.application.port.input.create_tag.CreateTagOutput;
-import com.tagtrace.application.port.input.create_tag.CreateTagUseCase;
-import com.tagtrace.application.port.output.CreateTagPort;
+import com.tagtrace.application.port.inbound.create_tag.CreateTagOutput;
+import com.tagtrace.application.port.inbound.create_tag.CreateTagUseCase;
+import com.tagtrace.application.port.outbound.CreateTagPort;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

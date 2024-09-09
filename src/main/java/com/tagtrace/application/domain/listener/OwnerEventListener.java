@@ -1,7 +1,7 @@
 package com.tagtrace.application.domain.listener;
 
 import com.tagtrace.application.domain.event.OwnerCreatedEvent;
-import com.tagtrace.application.port.output.EmailPort;
+import com.tagtrace.application.port.outbound.EmailPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
