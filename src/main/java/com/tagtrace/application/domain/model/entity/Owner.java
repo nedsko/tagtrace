@@ -7,6 +7,7 @@ import com.tagtrace.application.domain.model.value_object.TagId;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -22,5 +23,9 @@ public class Owner {
         this.ownedTagIds = ownedTagIds;
         this.name = name;
         this.email = email;
+    }
+
+    public static Owner newOwner(OwnerName name, Email email) {
+        return new Owner(null, new ArrayList<>(), name, email);
     }
 }
