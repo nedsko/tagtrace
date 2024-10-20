@@ -14,3 +14,8 @@ spring:
   h2:
     console:
       enabled: true
+
+com:
+  tagtrace:
+    qrcode:
+      baseUrl: "http://localhost:8080"
