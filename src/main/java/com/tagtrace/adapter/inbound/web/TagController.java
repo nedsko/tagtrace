@@ -1,6 +1,7 @@
 package com.tagtrace.adapter.inbound.web;
 
 import com.tagtrace.adapter.inbound.web.api.TagId;
+import com.tagtrace.adapter.inbound.web.api.TagName;
 import com.tagtrace.application.port.inbound.create_tag.CreateTagUseCase;
 import com.tagtrace.application.port.inbound.generate_qr.GenerateQrUseCase;
 import jakarta.validation.Valid;
@@ -30,8 +31,9 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<UUID> createNewTag() {
-        return ResponseEntity.ok(createTagUseCase.createTag().tagId().value());
+    public ResponseEntity<UUID> createNewTag(@RequestBody TagName tagName) {
+        var createdTag = createTagUseCase.createTag(new com.tagtrace.application.domain.model.value_object.TagName(tagName.name()));
+        return ResponseEntity.ok(createdTag.tagId().value());
     }
 
     @PostMapping(

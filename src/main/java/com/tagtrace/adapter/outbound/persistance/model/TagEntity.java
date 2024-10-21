@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
@@ -35,7 +36,8 @@ public class TagEntity {
     @Column(name = "last_modified_timestamp", nullable = false)
     private Instant lastModifiedTimeStamp;
 
-    @Column(name = "name", length = 40)
+    @Column(name = "name", length = 40, nullable = false)
+    @Nationalized
     private String name;
 
     @Column(name = "latitude")

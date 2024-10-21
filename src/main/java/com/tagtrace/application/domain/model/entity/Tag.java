@@ -36,11 +36,12 @@ public class Tag {
         this.lastKnownLocation = lastKnownLocation;
     }
 
-    public static Tag createNewTag() {
+    public static Tag createNewTag(TagName name) {
         var tag = new Tag();
         tag.status = TagStatus.INACTIVE;
         tag.createdTimeStamp = Instant.now();
         tag.lastModifiedTimeStamp = Instant.now();
+        tag.name = name;
         return tag;
     }
 }
