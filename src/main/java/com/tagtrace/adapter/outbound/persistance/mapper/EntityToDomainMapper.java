@@ -15,7 +15,7 @@ public class EntityToDomainMapper {
     public Tag mapTagEntity(TagEntity tagEntity) {
         return new Tag(
                 mapToTagId(tagEntity.getId()),
-                mapToOwnerId(tagEntity.getOwner().getId()),
+                mapToOwnerId(tagEntity.getOwner()),
                 mapTagStatus(tagEntity.getStatus()),
                 tagEntity.getCreatedTimeStamp(),
                 tagEntity.getLastModifiedTimeStamp(),
@@ -25,7 +25,7 @@ public class EntityToDomainMapper {
 
     public Owner mapOwnerEntity(OwnerEntity ownerEntity) {
         return new Owner(
-                mapToOwnerId(ownerEntity.getId()),
+                mapToOwnerId(ownerEntity),
                 ownerEntity.getOwnedTags().stream().map(TagEntity::getId).map(this::mapToTagId).toList(),
                 mapToOwnerName(ownerEntity.getName()),
                 mapToEmail(ownerEntity.getEmail())
@@ -42,6 +42,9 @@ public class EntityToDomainMapper {
     }
 
     public GeoLocation mapToGeoLocation(Double latitude, Double longitude) {
+        if (latitude == null && longitude == null) {
+            return null;
+        }
         return new GeoLocation(latitude, longitude);
     }
 
@@ -53,8 +56,11 @@ public class EntityToDomainMapper {
         return new TagName(name);
     }
 
-    public OwnerId mapToOwnerId(UUID id) {
-        return new OwnerId(id);
+    public OwnerId mapToOwnerId(OwnerEntity ownerEntity) {
+        if (ownerEntity == null) {
+            return null;
+        }
+        return new OwnerId(ownerEntity.getId());
     }
 
     public OwnerName mapToOwnerName(String name) {

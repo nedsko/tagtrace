@@ -37,6 +37,8 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	implementation 'commons-validator:commons-validator:1.9.0'
 	implementation 'io.nayuki:qrcodegen:1.8.0'
+	implementation 'org.mapstruct:mapstruct:1.6.2'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.2'
 	// Test
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }

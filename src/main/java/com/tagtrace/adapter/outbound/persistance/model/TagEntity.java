@@ -46,6 +46,10 @@ public class TagEntity {
     @Column(name = "longitude")
     private Double longitude;
 
+    // For JPA only
+    private TagEntity() {
+    }
+
     public TagEntity(OwnerEntity owner,
                      TagStatus status,
                      Instant createdTimeStamp,
