@@ -4,7 +4,9 @@ import com.tagtrace.adapter.inbound.web.api.CreateTagRequestObject;
 import com.tagtrace.adapter.inbound.web.api.TagDetailsResponse;
 import com.tagtrace.adapter.inbound.web.mapper.ApiToDomainMapper;
 import com.tagtrace.adapter.inbound.web.mapper.DomainToApiMapper;
+import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.inbound.create_tag.CreateTagUseCase;
+import com.tagtrace.application.port.inbound.delete_tag.DeleteTagUseCase;
 import com.tagtrace.application.port.inbound.generate_qr.GenerateQrUseCase;
 import com.tagtrace.application.port.inbound.get_tag_details.GetTagDetailsUseCase;
 import jakarta.validation.Valid;
@@ -24,6 +26,7 @@ public class TagController {
     private final CreateTagUseCase createTagUseCase;
     private final GenerateQrUseCase generateQrUseCase;
     private final GetTagDetailsUseCase getTagDetailsUseCase;
+    private final DeleteTagUseCase deleteTagUseCase;
     private final DomainToApiMapper domainToApiMapper;
     private final ApiToDomainMapper apiToDomainMapper;
 
@@ -31,11 +34,13 @@ public class TagController {
     public TagController(CreateTagUseCase createTagUseCase,
                          GenerateQrUseCase generateQrUseCase,
                          GetTagDetailsUseCase getTagDetailsUseCase,
+                         DeleteTagUseCase deleteTagUseCase,
                          DomainToApiMapper domainToApiMapper,
                          ApiToDomainMapper apiToDomainMapper) {
         this.createTagUseCase = createTagUseCase;
         this.generateQrUseCase = generateQrUseCase;
         this.getTagDetailsUseCase = getTagDetailsUseCase;
+        this.deleteTagUseCase = deleteTagUseCase;
         this.domainToApiMapper = domainToApiMapper;
         this.apiToDomainMapper = apiToDomainMapper;
     }
@@ -68,5 +73,11 @@ public class TagController {
                 getTagDetailsUseCase.getTagById(new com.tagtrace.application.domain.model.value_object.TagId(id))
         );
         return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTag(@PathVariable UUID id) {
+        deleteTagUseCase.deleteTag(new TagId(id));
+        return ResponseEntity.noContent().build();
     }
 }

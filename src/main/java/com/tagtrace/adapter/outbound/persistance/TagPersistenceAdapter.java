@@ -8,6 +8,7 @@ import com.tagtrace.application.domain.exception.MissingEntityException;
 import com.tagtrace.application.domain.model.entity.Tag;
 import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.outbound.CreateTagPort;
+import com.tagtrace.application.port.outbound.DeleteTagPort;
 import com.tagtrace.application.port.outbound.LoadTagPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort {
+public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, DeleteTagPort {
     private final TagEntityRepository tagEntityRepository;
     private final OwnerEntityRepository ownerEntityRepository;
     private final DomainToEntityMapper domainToEntityMapper;
@@ -51,5 +52,13 @@ public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort {
     @Override
     public boolean doesTagExist(TagId tagId) {
         return tagEntityRepository.existsById(tagId.value());
+    }
+
+    @Override
+    public void deleteTag(TagId tagId) {
+        if (!tagEntityRepository.existsById(tagId.value())) {
+            throw new MissingEntityException("Cannot delete tag. There is no tag with id %s".formatted(tagId.value()));
+        }
+        tagEntityRepository.deleteById(tagId.value());
     }
 }
