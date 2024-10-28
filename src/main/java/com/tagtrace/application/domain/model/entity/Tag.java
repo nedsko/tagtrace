@@ -1,11 +1,10 @@
 package com.tagtrace.application.domain.model.entity;
 
 import com.tagtrace.application.domain.model.value_object.*;
+import java.time.Instant;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.Instant;
 
 @Getter
 @Setter
@@ -19,16 +18,16 @@ public class Tag {
     private TagName name;
     private GeoLocation lastKnownLocation;
 
-    private Tag() {
-    }
+    private Tag() {}
 
-    public Tag(TagId id,
-               OwnerId ownerId,
-               TagStatus status,
-               Instant createdTimeStamp,
-               Instant lastModifiedTimeStamp,
-               TagName name,
-               GeoLocation lastKnownLocation) {
+    public Tag(
+            TagId id,
+            OwnerId ownerId,
+            TagStatus status,
+            Instant createdTimeStamp,
+            Instant lastModifiedTimeStamp,
+            TagName name,
+            GeoLocation lastKnownLocation) {
         this.id = id;
         this.ownerId = ownerId;
         this.status = status;

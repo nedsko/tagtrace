@@ -8,11 +8,10 @@ import com.tagtrace.application.domain.model.entity.Tag;
 import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.domain.model.value_object.TagName;
 import com.tagtrace.application.port.inbound.create_owner.CreateOwnerOutput;
+import java.util.UUID;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-
-import java.util.UUID;
 
 @Mapper(componentModel = "spring")
 public interface DomainToApiMapper {
@@ -21,8 +20,7 @@ public interface DomainToApiMapper {
         return new CreateOwnerResponseObject(
                 createdOwner.getId().value(),
                 createdOwner.getName().value(),
-                createdOwner.getEmail().value()
-        );
+                createdOwner.getEmail().value());
     }
 
     @Mapping(target = "id", source = "id", qualifiedByName = "tagIdMapper")

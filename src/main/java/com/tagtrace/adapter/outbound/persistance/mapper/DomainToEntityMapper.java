@@ -15,8 +15,7 @@ public class DomainToEntityMapper {
                 tag.getLastModifiedTimeStamp(),
                 tag.getName() != null ? tag.getName().value() : null,
                 tag.getLastKnownLocation() != null ? tag.getLastKnownLocation().latitude() : null,
-                tag.getLastKnownLocation() != null ? tag.getLastKnownLocation().longitude() : null
-        );
+                tag.getLastKnownLocation() != null ? tag.getLastKnownLocation().longitude() : null);
     }
 
     public TagStatus mapToTagStatus(com.tagtrace.application.domain.model.value_object.TagStatus tagStatus) {

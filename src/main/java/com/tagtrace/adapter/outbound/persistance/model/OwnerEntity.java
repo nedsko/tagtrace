@@ -2,16 +2,15 @@ package com.tagtrace.adapter.outbound.persistance.model;
 
 import com.tagtrace.application.domain.model.entity.Owner;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.UuidGenerator;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "owners")
@@ -37,8 +36,7 @@ public class OwnerEntity {
     private String email;
 
     // for JPA only
-    private OwnerEntity() {
-    }
+    private OwnerEntity() {}
 
     private OwnerEntity(UUID id, String name, String email) {
         this.id = id;

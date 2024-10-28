@@ -6,9 +6,8 @@ import com.tagtrace.adapter.outbound.persistance.model.TagStatus;
 import com.tagtrace.application.domain.model.entity.Owner;
 import com.tagtrace.application.domain.model.entity.Tag;
 import com.tagtrace.application.domain.model.value_object.*;
-import org.springframework.stereotype.Component;
-
 import java.util.UUID;
+import org.springframework.stereotype.Component;
 
 @Component
 public class EntityToDomainMapper {
@@ -26,10 +25,12 @@ public class EntityToDomainMapper {
     public Owner mapOwnerEntity(OwnerEntity ownerEntity) {
         return new Owner(
                 mapToOwnerId(ownerEntity),
-                ownerEntity.getOwnedTags().stream().map(TagEntity::getId).map(this::mapToTagId).toList(),
+                ownerEntity.getOwnedTags().stream()
+                        .map(TagEntity::getId)
+                        .map(this::mapToTagId)
+                        .toList(),
                 mapToOwnerName(ownerEntity.getName()),
-                mapToEmail(ownerEntity.getEmail())
-        );
+                mapToEmail(ownerEntity.getEmail()));
     }
 
     public com.tagtrace.application.domain.model.value_object.TagStatus mapTagStatus(TagStatus persistenceTag) {

@@ -21,9 +21,10 @@ public class OwnerController {
     private final DomainToApiMapper domainToApiMapper;
 
     @Autowired
-    public OwnerController(CreateOwnerUseCase createOwnerUseCase,
-                           ApiToDomainMapper apiToDomainMapper,
-                           DomainToApiMapper domainToApiMapper) {
+    public OwnerController(
+            CreateOwnerUseCase createOwnerUseCase,
+            ApiToDomainMapper apiToDomainMapper,
+            DomainToApiMapper domainToApiMapper) {
         this.createOwnerUseCase = createOwnerUseCase;
         this.apiToDomainMapper = apiToDomainMapper;
         this.domainToApiMapper = domainToApiMapper;
@@ -31,7 +32,8 @@ public class OwnerController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<CreateOwnerResponseObject> createNewOwner(@Valid @RequestBody CreateOwnerRequestObject requestObject) {
+    public ResponseEntity<CreateOwnerResponseObject> createNewOwner(
+            @Valid @RequestBody CreateOwnerRequestObject requestObject) {
         var output = createOwnerUseCase.createNewOwner(apiToDomainMapper.toCreateOwnerInput(requestObject));
         return ResponseEntity.ok(domainToApiMapper.toResponseObject(output));
     }

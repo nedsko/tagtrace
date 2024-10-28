@@ -20,9 +20,6 @@ public class ApiToDomainMapper {
     }
 
     public CreateTagInput toCreateTagInput(CreateTagRequestObject requestObject) {
-        return new CreateTagInput(
-                new TagName(requestObject.name()),
-                new OwnerId(requestObject.ownerId())
-        );
+        return new CreateTagInput(new TagName(requestObject.name()), new OwnerId(requestObject.ownerId()));
     }
 }

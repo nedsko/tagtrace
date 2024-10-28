@@ -18,6 +18,8 @@ public class OwnerEventListener {
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     void sendWelcomeEmailOnCreation(OwnerCreatedEvent event) {
-        emailPort.sendEmail(event.owner().getEmail().value(), "Welcome %s to TagTrace!".formatted(event.owner().getName().value()));
+        emailPort.sendEmail(
+                event.owner().getEmail().value(),
+                "Welcome %s to TagTrace!".formatted(event.owner().getName().value()));
     }
 }

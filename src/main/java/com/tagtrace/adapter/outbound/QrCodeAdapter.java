@@ -2,13 +2,12 @@ package com.tagtrace.adapter.outbound;
 
 import com.tagtrace.application.port.outbound.QrCodePort;
 import io.nayuki.qrcodegen.QrCode;
-import org.springframework.stereotype.Component;
-
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Objects;
+import javax.imageio.ImageIO;
+import org.springframework.stereotype.Component;
 
 @Component
 public class QrCodeAdapter implements QrCodePort {
@@ -24,8 +23,8 @@ public class QrCodeAdapter implements QrCodePort {
         return outputStream.toByteArray();
     }
 
-
-    // Taken from the QR-Code-generator demo on GitHub. https://github.com/nayuki/QR-Code-generator/blob/master/java/QrCodeGeneratorDemo.java#L172
+    // Taken from the QR-Code-generator demo on GitHub.
+    // https://github.com/nayuki/QR-Code-generator/blob/master/java/QrCodeGeneratorDemo.java#L172
     private static BufferedImage toImage(QrCode qr, int scale, int border, int lightColor, int darkColor) {
         Objects.requireNonNull(qr);
         if (scale <= 0 || border < 0) {
@@ -35,7 +34,8 @@ public class QrCodeAdapter implements QrCodePort {
             throw new IllegalArgumentException("Scale or border too large");
         }
 
-        BufferedImage result = new BufferedImage((qr.size + border * 2) * scale, (qr.size + border * 2) * scale, BufferedImage.TYPE_INT_RGB);
+        BufferedImage result = new BufferedImage(
+                (qr.size + border * 2) * scale, (qr.size + border * 2) * scale, BufferedImage.TYPE_INT_RGB);
         for (int y = 0; y < result.getHeight(); y++) {
             for (int x = 0; x < result.getWidth(); x++) {
                 boolean color = qr.getModule(x / scale - border, y / scale - border);

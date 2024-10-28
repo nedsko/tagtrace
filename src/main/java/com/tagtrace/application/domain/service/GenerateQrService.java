@@ -5,11 +5,10 @@ import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.inbound.generate_qr.GenerateQrUseCase;
 import com.tagtrace.application.port.outbound.LoadTagPort;
 import com.tagtrace.application.port.outbound.QrCodePort;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class GenerateQrService implements GenerateQrUseCase {
@@ -18,9 +17,10 @@ public class GenerateQrService implements GenerateQrUseCase {
     private final String QR_CODE_BASE_URL;
 
     @Autowired
-    public GenerateQrService(QrCodePort qrCodePort,
-                             LoadTagPort loadTagPort,
-                             @Value("${com.tagtrace.qrcode.baseUrl}") String qrCodeBaseUrl) {
+    public GenerateQrService(
+            QrCodePort qrCodePort,
+            LoadTagPort loadTagPort,
+            @Value("${com.tagtrace.qrcode.baseUrl}") String qrCodeBaseUrl) {
         this.qrCodePort = qrCodePort;
         this.loadTagPort = loadTagPort;
         QR_CODE_BASE_URL = qrCodeBaseUrl;

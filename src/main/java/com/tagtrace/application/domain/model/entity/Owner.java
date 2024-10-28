@@ -4,12 +4,11 @@ import com.tagtrace.application.domain.model.value_object.Email;
 import com.tagtrace.application.domain.model.value_object.OwnerId;
 import com.tagtrace.application.domain.model.value_object.OwnerName;
 import com.tagtrace.application.domain.model.value_object.TagId;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter

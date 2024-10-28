@@ -10,10 +10,9 @@ import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.outbound.CreateTagPort;
 import com.tagtrace.application.port.outbound.DeleteTagPort;
 import com.tagtrace.application.port.outbound.LoadTagPort;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
 
 @Component
 public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, DeleteTagPort {
@@ -23,10 +22,11 @@ public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, Delete
     private final EntityToDomainMapper entityToDomainMapper;
 
     @Autowired
-    public TagPersistenceAdapter(TagEntityRepository tagEntityRepository,
-                                 OwnerEntityRepository ownerEntityRepository,
-                                 DomainToEntityMapper domainToEntityMapper,
-                                 EntityToDomainMapper entityToDomainMapper) {
+    public TagPersistenceAdapter(
+            TagEntityRepository tagEntityRepository,
+            OwnerEntityRepository ownerEntityRepository,
+            DomainToEntityMapper domainToEntityMapper,
+            EntityToDomainMapper entityToDomainMapper) {
         this.tagEntityRepository = tagEntityRepository;
         this.ownerEntityRepository = ownerEntityRepository;
         this.domainToEntityMapper = domainToEntityMapper;
@@ -35,8 +35,10 @@ public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, Delete
 
     @Override
     public Tag createTag(Tag tagToCreate) {
-        var ownerEntity = ownerEntityRepository.findById(tagToCreate.getOwnerId().value())
-                .orElseThrow(() -> new MissingEntityException("There is no owner with id %s".formatted(tagToCreate.getOwnerId().value())));
+        var ownerEntity = ownerEntityRepository
+                .findById(tagToCreate.getOwnerId().value())
+                .orElseThrow(() -> new MissingEntityException("There is no owner with id %s"
+                        .formatted(tagToCreate.getOwnerId().value())));
         var tagEntityToCreate = domainToEntityMapper.mapToTagEntity(tagToCreate);
         tagEntityToCreate.setOwner(ownerEntity);
         var persistedEntity = tagEntityRepository.save(tagEntityToCreate);
@@ -45,8 +47,7 @@ public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, Delete
 
     @Override
     public Optional<Tag> getTagById(TagId tagId) {
-        return tagEntityRepository.findById(tagId.value())
-                .map(entityToDomainMapper::mapTagEntity);
+        return tagEntityRepository.findById(tagId.value()).map(entityToDomainMapper::mapTagEntity);
     }
 
     @Override

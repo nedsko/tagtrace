@@ -10,14 +10,13 @@ import com.tagtrace.application.port.inbound.delete_tag.DeleteTagUseCase;
 import com.tagtrace.application.port.inbound.generate_qr.GenerateQrUseCase;
 import com.tagtrace.application.port.inbound.get_tag_details.GetTagDetailsUseCase;
 import jakarta.validation.Valid;
+import java.io.IOException;
+import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/tags")
@@ -31,12 +30,13 @@ public class TagController {
     private final ApiToDomainMapper apiToDomainMapper;
 
     @Autowired
-    public TagController(CreateTagUseCase createTagUseCase,
-                         GenerateQrUseCase generateQrUseCase,
-                         GetTagDetailsUseCase getTagDetailsUseCase,
-                         DeleteTagUseCase deleteTagUseCase,
-                         DomainToApiMapper domainToApiMapper,
-                         ApiToDomainMapper apiToDomainMapper) {
+    public TagController(
+            CreateTagUseCase createTagUseCase,
+            GenerateQrUseCase generateQrUseCase,
+            GetTagDetailsUseCase getTagDetailsUseCase,
+            DeleteTagUseCase deleteTagUseCase,
+            DomainToApiMapper domainToApiMapper,
+            ApiToDomainMapper apiToDomainMapper) {
         this.createTagUseCase = createTagUseCase;
         this.generateQrUseCase = generateQrUseCase;
         this.getTagDetailsUseCase = getTagDetailsUseCase;
@@ -51,17 +51,12 @@ public class TagController {
         return ResponseEntity.ok(domainToApiMapper.toTagDetailsResponse(createdTag));
     }
 
-    @PostMapping(
-            value = "/{id}/generate-qr",
-            produces = MediaType.IMAGE_PNG_VALUE
-    )
+    @PostMapping(value = "/{id}/generate-qr", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> generateQrCode(@Valid @PathVariable UUID id) {
         try {
-            var qrCodeByteArray = generateQrUseCase.generateQrCode(new com.tagtrace.application.domain.model.value_object.TagId(id));
-            return ResponseEntity
-                    .ok()
-                    .contentType(MediaType.IMAGE_PNG)
-                    .body(qrCodeByteArray);
+            var qrCodeByteArray =
+                    generateQrUseCase.generateQrCode(new com.tagtrace.application.domain.model.value_object.TagId(id));
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(qrCodeByteArray);
         } catch (IOException e) {
             return ResponseEntity.internalServerError().build();
         }
@@ -70,8 +65,7 @@ public class TagController {
     @GetMapping("/{id}")
     public ResponseEntity<TagDetailsResponse> getTagDetails(@PathVariable UUID id) {
         var result = domainToApiMapper.toTagDetailsResponse(
-                getTagDetailsUseCase.getTagById(new com.tagtrace.application.domain.model.value_object.TagId(id))
-        );
+                getTagDetailsUseCase.getTagById(new com.tagtrace.application.domain.model.value_object.TagId(id)));
         return ResponseEntity.ok(result);
     }
 

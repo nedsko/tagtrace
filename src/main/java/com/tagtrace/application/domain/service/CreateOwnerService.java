@@ -21,9 +21,8 @@ public class CreateOwnerService implements CreateOwnerUseCase {
     private final ApplicationEventPublisher eventPublisher;
 
     @Autowired
-    public CreateOwnerService(LoadOwnersPort loadOwnersPort,
-                              SaveOwnerPort saveOwnerPort,
-                              ApplicationEventPublisher eventPublisher) {
+    public CreateOwnerService(
+            LoadOwnersPort loadOwnersPort, SaveOwnerPort saveOwnerPort, ApplicationEventPublisher eventPublisher) {
         this.loadOwnersPort = loadOwnersPort;
         this.saveOwnerPort = saveOwnerPort;
         this.eventPublisher = eventPublisher;
@@ -34,7 +33,8 @@ public class CreateOwnerService implements CreateOwnerUseCase {
         var newOwner = Owner.newOwner(input.name(), input.email());
         var ownerWithSameEmail = loadOwnersPort.findByEmail(input.email());
         if (ownerWithSameEmail != null) {
-            throw new DuplicateEntityException("Owner with e-mail %s already exists".formatted(input.email().value()));
+            throw new DuplicateEntityException("Owner with e-mail %s already exists"
+                    .formatted(input.email().value()));
         }
         var savedOwner = saveOwnerPort.save(newOwner);
         eventPublisher.publishEvent(new OwnerCreatedEvent(savedOwner));

@@ -19,7 +19,9 @@ public class GetTagDetailsService implements GetTagDetailsUseCase {
 
     @Override
     public Tag getTagById(TagId tagId) {
-        return loadTagPort.getTagById(tagId)
-                .orElseThrow(() -> new MissingEntityException("Tag with id %s does not exist".formatted(tagId.value())));
+        return loadTagPort
+                .getTagById(tagId)
+                .orElseThrow(
+                        () -> new MissingEntityException("Tag with id %s does not exist".formatted(tagId.value())));
     }
 }

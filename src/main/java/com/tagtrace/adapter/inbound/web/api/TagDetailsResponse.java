@@ -1,6 +1,5 @@
 package com.tagtrace.adapter.inbound.web.api;
 
-
 import java.time.Instant;
 import java.util.UUID;
 
@@ -10,6 +9,4 @@ public record TagDetailsResponse(
         Instant createdTimeStamp,
         Instant lastModifiedTimeStamp,
         String name,
-        GeoLocation lastKnownLocation
-) {
-}
+        GeoLocation lastKnownLocation) {}

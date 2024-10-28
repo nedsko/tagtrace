@@ -1,14 +1,13 @@
 package com.tagtrace.adapter.outbound.persistance.model;
 
 import jakarta.persistence.*;
+import java.time.Instant;
+import java.util.UUID;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.UuidGenerator;
-
-import java.time.Instant;
-import java.util.UUID;
 
 @Entity
 @Table(name = "tags")
@@ -47,16 +46,16 @@ public class TagEntity {
     private Double longitude;
 
     // For JPA only
-    private TagEntity() {
-    }
+    private TagEntity() {}
 
-    public TagEntity(OwnerEntity owner,
-                     TagStatus status,
-                     Instant createdTimeStamp,
-                     Instant lastModifiedTimeStamp,
-                     String name,
-                     Double latitude,
-                     Double longitude) {
+    public TagEntity(
+            OwnerEntity owner,
+            TagStatus status,
+            Instant createdTimeStamp,
+            Instant lastModifiedTimeStamp,
+            String name,
+            Double latitude,
+            Double longitude) {
         this.owner = owner;
         this.status = status;
         this.createdTimeStamp = createdTimeStamp;

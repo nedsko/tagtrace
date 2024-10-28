@@ -16,15 +16,16 @@ public class OwnerPersistenceAdapter implements LoadOwnersPort, SaveOwnerPort {
     private final EntityToDomainMapper entityToDomainMapper;
 
     @Autowired
-    public OwnerPersistenceAdapter(OwnerEntityRepository ownerEntityRepository,
-                                   EntityToDomainMapper entityToDomainMapper) {
+    public OwnerPersistenceAdapter(
+            OwnerEntityRepository ownerEntityRepository, EntityToDomainMapper entityToDomainMapper) {
         this.ownerEntityRepository = ownerEntityRepository;
         this.entityToDomainMapper = entityToDomainMapper;
     }
 
     @Override
     public Owner findByEmail(Email email) {
-        return ownerEntityRepository.findByEmail(email.value())
+        return ownerEntityRepository
+                .findByEmail(email.value())
                 .map(entityToDomainMapper::mapOwnerEntity)
                 .orElse(null);
     }
