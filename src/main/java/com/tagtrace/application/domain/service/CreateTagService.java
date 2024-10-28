@@ -6,9 +6,9 @@ import com.tagtrace.application.port.inbound.create_tag.CreateTagUseCase;
 import com.tagtrace.application.port.outbound.CreateTagPort;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @Transactional
 public class CreateTagService implements CreateTagUseCase {
 

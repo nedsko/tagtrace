@@ -5,9 +5,9 @@ import com.tagtrace.application.port.inbound.delete_tag.DeleteTagUseCase;
 import com.tagtrace.application.port.outbound.DeleteTagPort;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @Transactional
 public class DeleteTagService implements DeleteTagUseCase {
     private final DeleteTagPort deleteTagPort;

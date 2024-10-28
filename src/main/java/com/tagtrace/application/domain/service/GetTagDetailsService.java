@@ -6,9 +6,9 @@ import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.inbound.get_tag_details.GetTagDetailsUseCase;
 import com.tagtrace.application.port.outbound.LoadTagPort;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 public class GetTagDetailsService implements GetTagDetailsUseCase {
     private final LoadTagPort loadTagPort;
 
