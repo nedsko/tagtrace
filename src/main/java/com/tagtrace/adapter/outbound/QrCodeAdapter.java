@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class QrCodeAdapter implements QrCodePort {
-    private static final int BLACK_COLOR = 0xFFFFFF;
-    private static final int WHITE_COLOR = 0x000000;
+    private static final int BLACK_COLOR = 0x000000;
+    private static final int WHITE_COLOR = 0xFFFFFF;
 
     @Override
     public byte[] generateQrCode(String valueToEncode) throws IOException {
