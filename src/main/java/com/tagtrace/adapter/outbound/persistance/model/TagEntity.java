@@ -7,7 +7,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
-import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "tags")
@@ -15,27 +14,25 @@ import org.hibernate.annotations.UuidGenerator;
 @Setter
 public class TagEntity {
     @Id
-    @GeneratedValue
-    @UuidGenerator
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, updatable = false)
     @Setter(AccessLevel.PRIVATE)
     private UUID id;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "owner_id", nullable = false)
+    @JoinColumn(name = "owner_id", nullable = false, updatable = false)
     private OwnerEntity owner;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(name = "status", nullable = false)
     private TagStatus status;
 
-    @Column(name = "created_timestamp", nullable = false)
+    @Column(name = "created_timestamp", nullable = false, updatable = false)
     private Instant createdTimeStamp;
 
     @Column(name = "last_modified_timestamp", nullable = false)
     private Instant lastModifiedTimeStamp;
 
-    @Column(name = "name", length = 40, nullable = false)
+    @Column(name = "name", length = 40, nullable = false, updatable = false)
     @Nationalized
     private String name;
 
@@ -49,6 +46,7 @@ public class TagEntity {
     private TagEntity() {}
 
     public TagEntity(
+            UUID id,
             OwnerEntity owner,
             TagStatus status,
             Instant createdTimeStamp,
@@ -56,6 +54,7 @@ public class TagEntity {
             String name,
             Double latitude,
             Double longitude) {
+        this.id = id;
         this.owner = owner;
         this.status = status;
         this.createdTimeStamp = createdTimeStamp;
@@ -63,6 +62,13 @@ public class TagEntity {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
+    }
+
+    public void updateFromTag(TagEntity tagEntityWithNewValues) {
+        setStatus(tagEntityWithNewValues.getStatus());
+        setLatitude(tagEntityWithNewValues.getLatitude());
+        setLongitude(tagEntityWithNewValues.getLongitude());
+        setLastModifiedTimeStamp(tagEntityWithNewValues.getLastModifiedTimeStamp());
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.tagtrace.adapter.inbound.web;
 
 import com.tagtrace.adapter.inbound.web.api.CreateTagRequestObject;
+import com.tagtrace.adapter.inbound.web.api.PatchTagRequestObject;
 import com.tagtrace.adapter.inbound.web.api.TagDetailsResponse;
 import com.tagtrace.adapter.inbound.web.mapper.ApiToDomainMapper;
 import com.tagtrace.adapter.inbound.web.mapper.DomainToApiMapper;
@@ -9,6 +10,7 @@ import com.tagtrace.application.port.inbound.create_tag.CreateTagUseCase;
 import com.tagtrace.application.port.inbound.delete_tag.DeleteTagUseCase;
 import com.tagtrace.application.port.inbound.generate_qr.GenerateQrUseCase;
 import com.tagtrace.application.port.inbound.get_tag_details.GetTagDetailsUseCase;
+import com.tagtrace.application.port.inbound.update_tag.UpdateTagUseCase;
 import jakarta.validation.Valid;
 import java.io.IOException;
 import java.util.UUID;
@@ -28,6 +30,7 @@ public class TagController {
     private final DeleteTagUseCase deleteTagUseCase;
     private final DomainToApiMapper domainToApiMapper;
     private final ApiToDomainMapper apiToDomainMapper;
+    private final UpdateTagUseCase updateTagUseCase;
 
     @Autowired
     public TagController(
@@ -36,13 +39,23 @@ public class TagController {
             GetTagDetailsUseCase getTagDetailsUseCase,
             DeleteTagUseCase deleteTagUseCase,
             DomainToApiMapper domainToApiMapper,
-            ApiToDomainMapper apiToDomainMapper) {
+            ApiToDomainMapper apiToDomainMapper,
+            UpdateTagUseCase updateTagUseCase) {
         this.createTagUseCase = createTagUseCase;
         this.generateQrUseCase = generateQrUseCase;
         this.getTagDetailsUseCase = getTagDetailsUseCase;
         this.deleteTagUseCase = deleteTagUseCase;
         this.domainToApiMapper = domainToApiMapper;
         this.apiToDomainMapper = apiToDomainMapper;
+        this.updateTagUseCase = updateTagUseCase;
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<TagDetailsResponse> updateTag(
+            @PathVariable UUID id, @RequestBody PatchTagRequestObject requestObject) {
+        var useCaseInput = apiToDomainMapper.toUpdateTagInput(id, requestObject);
+        var useCaseResult = updateTagUseCase.updateTag(useCaseInput);
+        return ResponseEntity.ok(domainToApiMapper.toTagDetailsResponse(useCaseResult));
     }
 
     @PostMapping

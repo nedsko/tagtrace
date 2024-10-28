@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.Nationalized;
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "owners")
@@ -18,9 +17,7 @@ import org.hibernate.annotations.UuidGenerator;
 @Setter
 public class OwnerEntity {
     @Id
-    @GeneratedValue
-    @UuidGenerator
-    @Column(name = "id")
+    @Column(name = "id", nullable = false, updatable = false)
     @Setter(AccessLevel.PRIVATE)
     private UUID id;
 

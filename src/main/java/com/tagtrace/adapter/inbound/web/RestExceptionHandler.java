@@ -1,6 +1,7 @@
 package com.tagtrace.adapter.inbound.web;
 
 import com.tagtrace.application.domain.exception.DuplicateEntityException;
+import com.tagtrace.application.domain.exception.InvalidUpdateException;
 import com.tagtrace.application.domain.exception.MissingEntityException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,5 +20,10 @@ public class RestExceptionHandler {
     @ExceptionHandler(MissingEntityException.class)
     protected ResponseEntity<Object> handleMissingEntityException(MissingEntityException ex, WebRequest request) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidUpdateException.class)
+    protected ResponseEntity<Object> handleInvalidUpdateException(InvalidUpdateException ex, WebRequest request) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 }

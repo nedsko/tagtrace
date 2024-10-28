@@ -21,7 +21,7 @@ public class CreateTagService implements CreateTagUseCase {
 
     @Override
     public Tag createTag(CreateTagInput createTagInput) {
-        var newTag = Tag.createNewTag(createTagInput.tagName(), createTagInput.ownerId());
+        var newTag = Tag.createNewTagInDefaultState(createTagInput.tagName(), createTagInput.ownerId());
         return createTagPort.createTag(newTag);
     }
 }

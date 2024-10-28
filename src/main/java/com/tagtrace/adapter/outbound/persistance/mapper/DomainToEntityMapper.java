@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class DomainToEntityMapper {
     public TagEntity mapToTagEntity(Tag tag) {
         return new TagEntity(
+                tag.getId().value(),
                 null,
                 mapToTagStatus(tag.getStatus()),
                 tag.getCreatedTimeStamp(),

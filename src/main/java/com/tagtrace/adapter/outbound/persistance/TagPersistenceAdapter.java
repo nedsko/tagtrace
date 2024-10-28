@@ -10,12 +10,14 @@ import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.outbound.CreateTagPort;
 import com.tagtrace.application.port.outbound.DeleteTagPort;
 import com.tagtrace.application.port.outbound.LoadTagPort;
+import com.tagtrace.application.port.outbound.UpdateTagPort;
+import jakarta.persistence.EntityNotFoundException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, DeleteTagPort {
+public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, DeleteTagPort, UpdateTagPort {
     private final TagEntityRepository tagEntityRepository;
     private final OwnerEntityRepository ownerEntityRepository;
     private final DomainToEntityMapper domainToEntityMapper;
@@ -61,5 +63,16 @@ public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort, Delete
             throw new MissingEntityException("Cannot delete tag. There is no tag with id %s".formatted(tagId.value()));
         }
         tagEntityRepository.deleteById(tagId.value());
+    }
+
+    @Override
+    public Tag updateTag(Tag updatedTag) {
+        var persistedTag = tagEntityRepository
+                .findById(updatedTag.getId().value())
+                .orElseThrow(() -> new EntityNotFoundException(
+                        "No tag with id %s".formatted(updatedTag.getId().value())));
+        var mappedTagToUpdate = domainToEntityMapper.mapToTagEntity(updatedTag);
+        persistedTag.updateFromTag(mappedTagToUpdate);
+        return entityToDomainMapper.mapTagEntity(tagEntityRepository.save(persistedTag));
     }
 }

@@ -6,27 +6,48 @@ import com.tagtrace.application.domain.model.value_object.OwnerName;
 import com.tagtrace.application.domain.model.value_object.TagId;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @EqualsAndHashCode
 public class Owner {
-    private OwnerId id;
+    private final OwnerId id;
     private List<TagId> ownedTagIds;
     private OwnerName name;
     private Email email;
 
     public Owner(OwnerId id, List<TagId> ownedTagIds, OwnerName name, Email email) {
+        Objects.requireNonNull(id);
+        Objects.requireNonNull(name);
+        Objects.requireNonNull(email);
         this.id = id;
-        this.ownedTagIds = ownedTagIds;
+        this.ownedTagIds = Objects.requireNonNullElseGet(ownedTagIds, ArrayList::new);
         this.name = name;
         this.email = email;
     }
 
     public static Owner newOwner(OwnerName name, Email email) {
-        return new Owner(null, new ArrayList<>(), name, email);
+        return new Owner(new OwnerId(UUID.randomUUID()), new ArrayList<>(), name, email);
+    }
+
+    public void setOwnedTagIds(List<TagId> ownedTagIds) {
+        this.ownedTagIds = Objects.requireNonNullElseGet(ownedTagIds, ArrayList::new);
+    }
+
+    public void setName(OwnerName name) {
+        if (name == null) {
+            throw new IllegalArgumentException("name cannot be null in Owner");
+        }
+        this.name = name;
+    }
+
+    public void setEmail(Email email) {
+        if (email == null) {
+            throw new IllegalArgumentException("email cannot be null in Owner");
+        }
+        this.email = email;
     }
 }
