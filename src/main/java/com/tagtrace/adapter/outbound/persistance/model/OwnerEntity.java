@@ -29,11 +29,11 @@ public class OwnerEntity {
     private List<TagEntity> ownedTags = new ArrayList<>();
 
     @Nationalized
-    @Column(name = "name", length = 60)
+    @Column(name = "name", length = 60, nullable = false)
     private String name;
 
     @NaturalId
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
     // for JPA only

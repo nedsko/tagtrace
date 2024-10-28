@@ -1,8 +1,7 @@
 package com.tagtrace.application.domain.service;
 
 import com.tagtrace.application.domain.model.entity.Tag;
-import com.tagtrace.application.domain.model.value_object.TagName;
-import com.tagtrace.application.port.inbound.create_tag.CreateTagOutput;
+import com.tagtrace.application.port.inbound.create_tag.CreateTagInput;
 import com.tagtrace.application.port.inbound.create_tag.CreateTagUseCase;
 import com.tagtrace.application.port.outbound.CreateTagPort;
 import jakarta.transaction.Transactional;
@@ -21,9 +20,8 @@ public class CreateTagService implements CreateTagUseCase {
     }
 
     @Override
-    public CreateTagOutput createTag(TagName tagName) {
-        var newTag = Tag.createNewTag(tagName);
-        var idOfNewTag = createTagPort.createTag(newTag);
-        return new CreateTagOutput(idOfNewTag);
+    public Tag createTag(CreateTagInput createTagInput) {
+        var newTag = Tag.createNewTag(createTagInput.tagName(), createTagInput.ownerId());
+        return createTagPort.createTag(newTag);
     }
 }

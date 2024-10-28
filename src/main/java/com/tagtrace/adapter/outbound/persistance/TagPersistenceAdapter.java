@@ -2,7 +2,9 @@ package com.tagtrace.adapter.outbound.persistance;
 
 import com.tagtrace.adapter.outbound.persistance.mapper.DomainToEntityMapper;
 import com.tagtrace.adapter.outbound.persistance.mapper.EntityToDomainMapper;
+import com.tagtrace.adapter.outbound.persistance.repository.OwnerEntityRepository;
 import com.tagtrace.adapter.outbound.persistance.repository.TagEntityRepository;
+import com.tagtrace.application.domain.exception.MissingEntityException;
 import com.tagtrace.application.domain.model.entity.Tag;
 import com.tagtrace.application.domain.model.value_object.TagId;
 import com.tagtrace.application.port.outbound.CreateTagPort;
@@ -15,23 +17,29 @@ import java.util.Optional;
 @Component
 public class TagPersistenceAdapter implements CreateTagPort, LoadTagPort {
     private final TagEntityRepository tagEntityRepository;
+    private final OwnerEntityRepository ownerEntityRepository;
     private final DomainToEntityMapper domainToEntityMapper;
     private final EntityToDomainMapper entityToDomainMapper;
 
     @Autowired
     public TagPersistenceAdapter(TagEntityRepository tagEntityRepository,
+                                 OwnerEntityRepository ownerEntityRepository,
                                  DomainToEntityMapper domainToEntityMapper,
                                  EntityToDomainMapper entityToDomainMapper) {
         this.tagEntityRepository = tagEntityRepository;
+        this.ownerEntityRepository = ownerEntityRepository;
         this.domainToEntityMapper = domainToEntityMapper;
         this.entityToDomainMapper = entityToDomainMapper;
     }
 
     @Override
-    public TagId createTag(Tag tagToCreate) {
-        var mappedEntity = domainToEntityMapper.mapToTagEntity(tagToCreate);
-        var persistedEntity = tagEntityRepository.save(mappedEntity);
-        return new TagId(persistedEntity.getId());
+    public Tag createTag(Tag tagToCreate) {
+        var ownerEntity = ownerEntityRepository.findById(tagToCreate.getOwnerId().value())
+                .orElseThrow(() -> new MissingEntityException("There is no owner with id %s".formatted(tagToCreate.getOwnerId().value())));
+        var tagEntityToCreate = domainToEntityMapper.mapToTagEntity(tagToCreate);
+        tagEntityToCreate.setOwner(ownerEntity);
+        var persistedEntity = tagEntityRepository.save(tagEntityToCreate);
+        return entityToDomainMapper.mapTagEntity(persistedEntity);
     }
 
     @Override

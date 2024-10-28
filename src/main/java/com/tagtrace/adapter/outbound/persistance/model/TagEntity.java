@@ -22,8 +22,8 @@ public class TagEntity {
     @Setter(AccessLevel.PRIVATE)
     private UUID id;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "owner_id", nullable = false)
     private OwnerEntity owner;
 
     @Enumerated(EnumType.ORDINAL)

@@ -21,10 +21,8 @@ public class DomainToEntityMapper {
 
     public TagStatus mapToTagStatus(com.tagtrace.application.domain.model.value_object.TagStatus tagStatus) {
         return switch (tagStatus) {
-            case INACTIVE -> TagStatus.INACTIVE;
             case ACTIVE -> TagStatus.ACTIVE;
             case REPORTED_MISSING -> TagStatus.REPORTED_MISSING;
-            case DECOMMISSIONED -> TagStatus.DECOMMISSIONED;
         };
     }
 }

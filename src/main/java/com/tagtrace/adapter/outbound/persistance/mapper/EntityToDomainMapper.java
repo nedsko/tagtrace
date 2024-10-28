@@ -34,10 +34,8 @@ public class EntityToDomainMapper {
 
     public com.tagtrace.application.domain.model.value_object.TagStatus mapTagStatus(TagStatus persistenceTag) {
         return switch (persistenceTag) {
-            case INACTIVE -> com.tagtrace.application.domain.model.value_object.TagStatus.INACTIVE;
             case ACTIVE -> com.tagtrace.application.domain.model.value_object.TagStatus.ACTIVE;
             case REPORTED_MISSING -> com.tagtrace.application.domain.model.value_object.TagStatus.REPORTED_MISSING;
-            case DECOMMISSIONED -> com.tagtrace.application.domain.model.value_object.TagStatus.DECOMMISSIONED;
         };
     }
 

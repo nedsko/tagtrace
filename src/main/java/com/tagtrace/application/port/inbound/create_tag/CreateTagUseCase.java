@@ -1,7 +1,7 @@
 package com.tagtrace.application.port.inbound.create_tag;
 
-import com.tagtrace.application.domain.model.value_object.TagName;
+import com.tagtrace.application.domain.model.entity.Tag;
 
 public interface CreateTagUseCase {
-    CreateTagOutput createTag(TagName tagName);
+    Tag createTag(CreateTagInput createTagInput);
 }
